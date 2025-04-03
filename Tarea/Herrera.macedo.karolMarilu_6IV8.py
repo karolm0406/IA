@@ -85,3 +85,47 @@ clf.fit(X_train.values, y_train.values.ravel())
 
 #Imprimimos el tiempo tomado para el entrenamiento
 print("Entrenamineto terminado en {} segundos".format(time()- hora_inicio))
+
+#Otra vez guardaremos registro del tiempo que nos toma crear esta predicción
+hora_inicio= time()
+#Iniciamos la prediccion con nuestra X de prueba
+y_pred = clf.predict(X_test)
+#Mostramos el tiempo tomado para la predicción
+print("Prediccion terminada en {} segundos" .format(time()-hora_inicio))
+
+#Evaluamos la precision
+accuracy_score(y_test,y_pred)
+
+#Matriz de cofusion: Nos ayuda a tener una mejor idea del rendimiento de nuestro rendimiento de datos de prueba(y_test en este caso) y nuestros datos calculados(y_pred en este caso)
+#la funcion confusion_matrix recibe las "respuestas correctas" y nuestras predicciones
+#genera una matriz que indica, para cada clase, la canbtidad de predicciones correctas
+conf_diabetes= confusion_matrix(y_test, y_pred)
+conf_diabetes
+
+def plot_cm(cm, classes):
+    """Esta funcion s envcarga de generar un gráfico con nuestra matriz de confusion, cm es l matriz generada por confusion_matrix
+    classes es una lista que contiene las posibles clases que puede predecir nuestro"""
+    
+    plt.imshow(cm, cmap=plt.cm.Blues)
+    plt.title('Matriz de confusión')
+    plt.colorbar()
+    tick_marks=np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+    thresh=cm.max()/2.
+    for indice_fila, fila in enumerate(cm):
+        for indice_columna, columna in enumerate(fila):
+            if cm[indice_fila, indice_columna] > thresh:
+                color="white"
+            else:
+                color="black"
+            plt.text(
+                indice_columna,
+                indice_fila,
+                cm[indice_fila, indice_columna],
+                color=color,
+                horizontalaligment="center"
+            )
+    plt.ylabel("valores reales")
+    plt.xlabel("valores calculados")
+    plt.show()
