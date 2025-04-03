@@ -129,3 +129,8 @@ def plot_cm(cm, classes):
     plt.ylabel("valores reales")
     plt.xlabel("valores calculados")
     plt.show()
+    
+    #Generamos el grafico llamadp la funcion que creamos y envindo los parametros
+    #cm  muestra matriz de confusion (conf_diabetes)
+    #clases = las clases a predecir (si tienen diabetes o no)
+    plot_cm(conf_diabetes, ['No diabetes', 'Si diabetes'])
